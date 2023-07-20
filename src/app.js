@@ -1,8 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const users = require("./users");
+const cors = require("cors");
 
 const app = express();
+
+app.use(cors());
 
 // Middleware to parse request bodies
 app.use(bodyParser.json());
