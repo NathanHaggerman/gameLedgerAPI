@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const users = require("./users");
+const games = require("./games");
 const cors = require("cors");
 
 const app = express();
@@ -56,6 +57,17 @@ app.put("/users/:id", async (req, res) => {
   } catch (error) {
     console.error("Failed to update user:", error);
     res.status(500).json({ error: "Failed to update user" });
+  }
+});
+
+// Route to retrieve user's games by UserID
+app.get("/usersGames/:id", async (req, res) => {
+  try {
+    const userID = req.params.id;
+    const usersGamesList = await games.getGamesByUserID(userID);
+    res.json(usersGamesList);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to retrieve user's games" });
   }
 });
 
